@@ -15,6 +15,11 @@ import {
 } from "@shopify/polaris";
 import { TitleBar, useAppBridge } from "@shopify/app-bridge-react";
 import { authenticate } from "../shopify.server";
+import {
+  CREATE_PRODUCT_MUTATION,
+  UPDATE_VARIANT_MUTATION,
+} from "~/graphql/product";
+import { useTranslation } from "react-i18next";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   await authenticate.admin(request);
@@ -27,60 +32,24 @@ export const action = async ({ request }: ActionFunctionArgs) => {
   const color = ["Red", "Orange", "Yellow", "Green"][
     Math.floor(Math.random() * 4)
   ];
-  const response = await admin.graphql(
-    `#graphql
-      mutation populateProduct($product: ProductCreateInput!) {
-        productCreate(product: $product) {
-          product {
-            id
-            title
-            handle
-            status
-            variants(first: 10) {
-              edges {
-                node {
-                  id
-                  price
-                  barcode
-                  createdAt
-                }
-              }
-            }
-          }
-        }
-      }`,
-    {
-      variables: {
-        product: {
-          title: `${color} Snowboard`,
-        },
+  const response = await admin.graphql(CREATE_PRODUCT_MUTATION, {
+    variables: {
+      product: {
+        title: `${color} Snowboard`,
       },
     },
-  );
+  });
   const responseJson = await response.json();
 
   const product = responseJson.data!.productCreate!.product!;
   const variantId = product.variants.edges[0]!.node!.id!;
 
-  const variantResponse = await admin.graphql(
-    `#graphql
-    mutation shopifyRemixTemplateUpdateVariant($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
-      productVariantsBulkUpdate(productId: $productId, variants: $variants) {
-        productVariants {
-          id
-          price
-          barcode
-          createdAt
-        }
-      }
-    }`,
-    {
-      variables: {
-        productId: product.id,
-        variants: [{ id: variantId, price: "100.00" }],
-      },
+  const variantResponse = await admin.graphql(UPDATE_VARIANT_MUTATION, {
+    variables: {
+      productId: product.id,
+      variants: [{ id: variantId, price: "100.00" }],
     },
-  );
+  });
 
   const variantResponseJson = await variantResponse.json();
 
@@ -93,7 +62,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
 export default function Index() {
   const fetcher = useFetcher<typeof action>();
-
+  const { t } = useTranslation("home");
   const shopify = useAppBridge();
   const isLoading =
     ["loading", "submitting"].includes(fetcher.state) &&
@@ -112,65 +81,35 @@ export default function Index() {
 
   return (
     <Page>
-      <TitleBar title="Remix app template">
-        <button variant="primary" onClick={generateProduct}>
-          Generate a product
-        </button>
-      </TitleBar>
+      <TitleBar title={t("title")} />
       <BlockStack gap="500">
         <Layout>
+          {/* Main Section */}
           <Layout.Section>
             <Card>
               <BlockStack gap="500">
-                <BlockStack gap="200">
-                  <Text as="h2" variant="headingMd">
-                    Congrats on creating a new Shopify app 🎉
-                  </Text>
-                  <Text variant="bodyMd" as="p">
-                    This embedded app template uses{" "}
-                    <Link
-                      url="https://shopify.dev/docs/apps/tools/app-bridge"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      App Bridge
-                    </Link>{" "}
-                    interface examples like an{" "}
-                    <Link url="/app/additional" removeUnderline>
-                      additional page in the app nav
-                    </Link>
-                    , as well as an{" "}
-                    <Link
-                      url="https://shopify.dev/docs/api/admin-graphql"
-                      target="_blank"
-                      removeUnderline
-                    >
-                      Admin GraphQL
-                    </Link>{" "}
-                    mutation demo, to provide a starting point for app
-                    development.
-                  </Text>
-                </BlockStack>
+                {/* Product Information Block */}
                 <BlockStack gap="200">
                   <Text as="h3" variant="headingMd">
-                    Get started with products
+                    {t("blocks.intro.heading")}
                   </Text>
                   <Text as="p" variant="bodyMd">
-                    Generate a product with GraphQL and get the JSON output for
-                    that product. Learn more about the{" "}
+                    {t("blocks.intro.description")}{" "}
                     <Link
                       url="https://shopify.dev/docs/api/admin-graphql/latest/mutations/productCreate"
                       target="_blank"
                       removeUnderline
                     >
-                      productCreate
+                      {t("blocks.intro.productCreate_link")}
                     </Link>{" "}
-                    mutation in our API references.
+                    {t("blocks.intro.additional_info")}
                   </Text>
                 </BlockStack>
+
+                {/* Buttons */}
                 <InlineStack gap="300">
                   <Button loading={isLoading} onClick={generateProduct}>
-                    Generate a product
+                    {t("blocks.actions.buttons.generate_product")}
                   </Button>
                   {fetcher.data?.product && (
                     <Button
@@ -182,10 +121,11 @@ export default function Index() {
                     </Button>
                   )}
                 </InlineStack>
+
+                {/* Product Data Output */}
                 {fetcher.data?.product && (
                   <>
                     <Text as="h3" variant="headingMd">
-                      {" "}
                       productCreate mutation
                     </Text>
                     <Box
@@ -202,8 +142,8 @@ export default function Index() {
                         </code>
                       </pre>
                     </Box>
+
                     <Text as="h3" variant="headingMd">
-                      {" "}
                       productVariantsBulkUpdate mutation
                     </Text>
                     <Box
@@ -225,101 +165,24 @@ export default function Index() {
               </BlockStack>
             </Card>
           </Layout.Section>
+
+          {/* Side Section */}
           <Layout.Section variant="oneThird">
             <BlockStack gap="500">
               <Card>
                 <BlockStack gap="200">
                   <Text as="h2" variant="headingMd">
-                    App template specs
-                  </Text>
-                  <BlockStack gap="200">
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Framework
-                      </Text>
-                      <Link
-                        url="https://remix.run"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        Remix
-                      </Link>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Database
-                      </Text>
-                      <Link
-                        url="https://www.prisma.io/"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        Prisma
-                      </Link>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        Interface
-                      </Text>
-                      <span>
-                        <Link
-                          url="https://polaris.shopify.com"
-                          target="_blank"
-                          removeUnderline
-                        >
-                          Polaris
-                        </Link>
-                        {", "}
-                        <Link
-                          url="https://shopify.dev/docs/apps/tools/app-bridge"
-                          target="_blank"
-                          removeUnderline
-                        >
-                          App Bridge
-                        </Link>
-                      </span>
-                    </InlineStack>
-                    <InlineStack align="space-between">
-                      <Text as="span" variant="bodyMd">
-                        API
-                      </Text>
-                      <Link
-                        url="https://shopify.dev/docs/api/admin-graphql"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        GraphQL API
-                      </Link>
-                    </InlineStack>
-                  </BlockStack>
-                </BlockStack>
-              </Card>
-              <Card>
-                <BlockStack gap="200">
-                  <Text as="h2" variant="headingMd">
-                    Next steps
+                    {t("blocks.next_steps.heading")}
                   </Text>
                   <List>
                     <List.Item>
-                      Build an{" "}
-                      <Link
-                        url="https://shopify.dev/docs/apps/getting-started/build-app-example"
-                        target="_blank"
-                        removeUnderline
-                      >
-                        {" "}
-                        example app
-                      </Link>{" "}
-                      to get started
-                    </List.Item>
-                    <List.Item>
-                      Explore Shopify’s API with{" "}
+                      {t("blocks.next_steps.description")}{" "}
                       <Link
                         url="https://shopify.dev/docs/apps/tools/graphiql-admin-api"
                         target="_blank"
                         removeUnderline
                       >
-                        GraphiQL
+                        {t("blocks.next_steps.graphiql_link")}
                       </Link>
                     </List.Item>
                   </List>

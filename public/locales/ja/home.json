@@ -1,0 +1,21 @@
+{
+  "title": "Remixアプリテンプレート",
+  "blocks": {
+    "intro": {
+      "heading": "商品管理を始めましょう 🎉",
+      "description": "GraphQLを使用して商品を作成し、そのJSONデータを取得します。詳しくは",
+      "productCreate_link": "productCreate",
+      "additional_info": "のAPIリファレンスをご覧ください。"
+    },
+    "actions": {
+      "buttons": {
+        "generate_product": "商品を生成"
+      }
+    },
+    "next_steps": {
+      "heading": "次のステップ",
+      "description": "ShopifyのAPIを探索する",
+      "graphiql_link": "GraphiQL"
+    }
+  }
+}

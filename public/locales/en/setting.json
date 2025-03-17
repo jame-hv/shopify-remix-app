@@ -1,0 +1,16 @@
+{
+  "title": "General Settings",
+  "description": "",
+  "labels": {
+    "admin_lang": "Admin Language",
+    "notification_lang": "Notification Language",
+    "datetime_format": "Date/Time Format"
+  },
+  "button": {
+    "save": "Save"
+  },
+  "toast": {
+    "success": "Saved successfully"
+  }
+}
+

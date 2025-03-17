@@ -1,0 +1,34 @@
+{
+  "title": "Upgrade your plan",
+  "freePlanMessage": "You are currently on the Free plan.",
+  "changePlanTitle": "Change Your Plan",
+  "cancelPlan": "Cancel Plan",
+  "currentPlan": "You are currently on the",
+  "currentPlanMessage": "You're currently on this plan",
+
+  "monthlyPlan": {
+    "title": "Monthly Plan",
+    "description": "Access premium features with a monthly subscription.",
+    "price": "9",
+    "period": "month",
+    "feature1": "Manage up to 10,000 products",
+    "feature2": "Advanced customization options",
+    "feature3": "Priority customer support",
+    "feature4": "Detailed analytics and reporting",
+    "action": "Upgrade",
+    "url": "/api/subscription/monthly"
+  },
+
+  "annualPlan": {
+    "title": "Annual Plan",
+    "description": "Save more with an annual subscription while enjoying premium features.",
+    "price": "99",
+    "period": "year",
+    "feature1": "Manage up to 100,000 products",
+    "feature2": "Advanced customization options",
+    "feature3": "Priority customer support",
+    "feature4": "Detailed analytics and reporting",
+    "action": "Upgrade",
+    "url": "/api/subscription/annual"
+  }
+}

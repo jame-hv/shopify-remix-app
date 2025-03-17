@@ -1,13 +1,14 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "66bded3c3b43106166bee8105a594529"
-application_url = "https://example.com/"
+application_url = "https://refinance-lawyer-isa-assumed.trycloudflare.com"
 embedded = true
 name = "base-remix-app"
-handle = "base-remix-app-2"
+handle = "base-remix-app"
 
 [build]
 include_config_on_deploy = true
+automatically_update_urls_on_dev = true
 
 [webhooks]
 api_version = "2025-01"
@@ -22,10 +23,14 @@ api_version = "2025-01"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products,read_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://refinance-lawyer-isa-assumed.trycloudflare.com/auth/callback",
+  "https://refinance-lawyer-isa-assumed.trycloudflare.com/auth/shopify/callback",
+  "https://refinance-lawyer-isa-assumed.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false
