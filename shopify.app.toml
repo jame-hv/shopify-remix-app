@@ -1,31 +1,27 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-client_id = "66bded3c3b43106166bee8105a594529"
-application_url = "https://example.com/"
+client_id = "615e12a5fa2bd4f1c277d6546bee8dfc"
+application_url = "https://lip-qld-anime-petition.trycloudflare.com"
 embedded = true
-name = "base-remix-app"
-handle = "base-remix-app-2"
+name = "remix-template"
+handle = "remix-template-34"
 
 [build]
 include_config_on_deploy = true
 
 [webhooks]
-api_version = "2025-01"
-
-  [[webhooks.subscriptions]]
-  topics = [ "app/uninstalled" ]
-  uri = "/webhooks/app/uninstalled"
-
-  [[webhooks.subscriptions]]
-  topics = [ "app/scopes_update" ]
-  uri = "/webhooks/app/scopes_update"
+api_version = "2025-07"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "read_products,write_products"
 
 [auth]
-redirect_urls = [ "https://example.com/api/auth" ]
+redirect_urls = [
+  "https://lip-qld-anime-petition.trycloudflare.com/auth/callback",
+  "https://lip-qld-anime-petition.trycloudflare.com/auth/shopify/callback",
+  "https://lip-qld-anime-petition.trycloudflare.com/api/auth/callback"
+]
 
 [pos]
 embedded = false

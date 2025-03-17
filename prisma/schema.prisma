@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Session {
-  id            String    @id
+  id            String    @id @default(uuid()) // Use UUID as primary key
   shop          String
   state         String
   isOnline      Boolean   @default(false)
@@ -29,4 +29,14 @@ model Session {
   locale        String?
   collaborator  Boolean?  @default(false)
   emailVerified Boolean?  @default(false)
+}
+
+model Setting {
+  id                String   @id @default(uuid())
+  shop              String   @unique
+  lang              String   @default("en")
+  notification_lang String   @default("en")
+  datetime_format   Int?
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
 }

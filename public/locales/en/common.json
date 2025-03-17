@@ -1,0 +1,8 @@
+{
+  "welcome": "Welcome",
+  "menu":{
+    "home":"Home",
+    "setting":"General Settings",
+    "upgrade":"Upgrade"
+  }
+}
