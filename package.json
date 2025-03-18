@@ -1,6 +1,10 @@
 {
-  "name": "base-remix-app",
+  "name": "shopify-app-template-remix",
+  "version": "0.0.0",
   "private": true,
+  "license": "UNLICENSED",
+  "description": "A template for building Shopify apps with Remix",
+  "dev": "hoangvu",
   "scripts": {
     "build": "remix vite:build",
     "dev": "shopify app dev",
