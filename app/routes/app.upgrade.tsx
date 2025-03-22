@@ -1,6 +1,7 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { BlockStack, Card, Layout, Page } from "@shopify/polaris";
+import { useTranslation } from "react-i18next";
 import SelectPlan from "~/components/upgrade/SelectPlan";
 import { ANNUAL_PLAN, authenticate, MONTHLY_PLAN } from "~/shopify.server";
 
@@ -12,8 +13,6 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     isTest: true,
   });
 
-  // const subscription = billingCheck.appSubscriptions[0];
-
   return {
     hasActivePayment,
     appSubscriptions,
@@ -22,6 +21,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 const Upgrade = () => {
   const { hasActivePayment, appSubscriptions } = useLoaderData<typeof loader>();
+  const { t } = useTranslation("upgrade");
 
   const plan = hasActivePayment
     ? appSubscriptions[0]
@@ -30,11 +30,7 @@ const Upgrade = () => {
       };
 
   return (
-    <Page
-      fullWidth
-      backAction={{ onAction: () => history.back() }}
-      title="Upgrade your plan"
-    >
+    <Page backAction={{ onAction: () => history.back() }} title={t("title")}>
       <Layout>
         <Layout.Section>
           <Card>

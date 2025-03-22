@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "66bded3c3b43106166bee8105a594529"
-application_url = "https://costs-geological-covered-regulatory.trycloudflare.com"
+application_url = "https://calls-uganda-cigarette-soccer.trycloudflare.com"
 embedded = true
 name = "base-remix-app"
 handle = "base-remix-app"
@@ -27,9 +27,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://costs-geological-covered-regulatory.trycloudflare.com/auth/callback",
-  "https://costs-geological-covered-regulatory.trycloudflare.com/auth/shopify/callback",
-  "https://costs-geological-covered-regulatory.trycloudflare.com/api/auth/callback"
+  "https://calls-uganda-cigarette-soccer.trycloudflare.com/auth/callback",
+  "https://calls-uganda-cigarette-soccer.trycloudflare.com/auth/shopify/callback",
+  "https://calls-uganda-cigarette-soccer.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

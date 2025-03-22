@@ -9,38 +9,16 @@ import {
   ExceptionList,
   Button,
 } from "@shopify/polaris";
+import { useTranslation } from "react-i18next";
 
 const planData = [
   {
-    title: "Monthly Plan",
-    description: "Access premium features with a monthly subscription.",
-    price: "9",
-    period: "month",
+    key: "monthlyPlan",
     name: "Monthly subscription",
-    action: "Upgrade",
-    url: "/api/subscription/monthly",
-    features: [
-      "Manage up to 10,000 products",
-      "Advanced customization options",
-      "Priority customer support",
-      "Detailed analytics and reporting",
-    ],
   },
   {
-    title: "Annual Plan",
-    description:
-      "Save more with an annual subscription while enjoying premium features.",
-    price: "99",
-    period: "year",
+    key: "annualPlan",
     name: "Annual subscription",
-    action: "Upgrade",
-    url: "/api/subscription/annual",
-    features: [
-      "Manage up to 100,000 products",
-      "Advanced customization options",
-      "Priority customer support",
-      "Detailed analytics and reporting",
-    ],
   },
 ];
 
@@ -50,7 +28,8 @@ interface PricingProps {
 
 export default function SelectPlan(props: PricingProps) {
   const { plan } = props;
-  const isAnnual = plan.name === "Annual subscription"; // ✅ Check if the user is on an annual plan
+  const { t } = useTranslation("upgrade");
+  const isAnnual = plan.name === t("annualPlan.name");
 
   return (
     <>
@@ -58,20 +37,20 @@ export default function SelectPlan(props: PricingProps) {
         <Card>
           <BlockStack gap="200">
             <Text as="h3" variant="headingMd">
-              You are currently on the {plan.name} plan
+              {t("freePlanMessage")}
             </Text>
           </BlockStack>
         </Card>
       ) : (
         <CalloutCard
-          title="Change Your Plan"
+          title={t("changePlanTitle")}
           illustration="https://cdn.shopify.com/s/files/1/0583/6465/7734/files/tag.png?v=1705280535"
           primaryAction={{
-            content: "Cancel Plan",
+            content: t("cancelPlan"),
             url: "/api/subscription/cancel",
           }}
         >
-          You are currently on the {plan.name} plan
+          {t("currentPlan")}: {plan.name}
         </CalloutCard>
       )}
 
@@ -94,17 +73,19 @@ export default function SelectPlan(props: PricingProps) {
             >
               <BlockStack gap="200">
                 <Text as="h3" variant="headingMd">
-                  {plan_item.title}
+                  {t(`${plan_item.key}.title`)}
                 </Text>
                 <Box>
-                  {plan_item.description}
+                  {t(`${plan_item.key}.description`)}
                   <br />
                   <BlockStack>
-                    <Text as="p" variant="heading3xl" fontWeight="bold">
-                      {plan_item.price === "0" ? "Free" : `$${plan_item.price}`}
+                    <Text as="p" variant="heading2xl" fontWeight="bold">
+                      {plan_item.key === "freePlan"
+                        ? "Free"
+                        : `$${t(`${plan_item.key}.price`)}`}
                     </Text>
-                    <Text as="span" variant="bodyMd" alignment="end">
-                      / {plan_item.period}
+                    <Text as="span" variant="bodyMd">
+                      / {t(`${plan_item.key}.period`)}
                     </Text>
                   </BlockStack>
                 </Box>
@@ -114,12 +95,18 @@ export default function SelectPlan(props: PricingProps) {
                 </div>
 
                 <BlockStack gap="100">
-                  {plan_item.features.map((feature, featureIndex) => (
-                    <ExceptionList
-                      key={featureIndex}
-                      items={[{ description: feature }]}
-                    />
-                  ))}
+                  <ExceptionList
+                    items={[{ description: t(`${plan_item.key}.feature1`) }]}
+                  />
+                  <ExceptionList
+                    items={[{ description: t(`${plan_item.key}.feature2`) }]}
+                  />
+                  <ExceptionList
+                    items={[{ description: t(`${plan_item.key}.feature3`) }]}
+                  />
+                  <ExceptionList
+                    items={[{ description: t(`${plan_item.key}.feature4`) }]}
+                  />
                 </BlockStack>
 
                 <div style={{ margin: "1rem 0" }}>
@@ -129,16 +116,14 @@ export default function SelectPlan(props: PricingProps) {
                 {plan_item.name !== plan.name ? (
                   <Button
                     variant="primary"
-                    url={plan_item.url}
-                    disabled={
-                      isAnnual && plan_item.name === "Monthly subscription"
-                    }
+                    url={t(`${plan_item.key}.url`)}
+                    disabled={isAnnual && plan_item.key === "monthlyPlan"}
                   >
-                    {plan_item.action}
+                    {t(`${plan_item.key}.action`)}
                   </Button>
                 ) : (
                   <Text as="p" variant="bodyMd" fontWeight="bold">
-                    You're currently on this plan
+                    {t("currentPlanMessage")}
                   </Text>
                 )}
               </BlockStack>

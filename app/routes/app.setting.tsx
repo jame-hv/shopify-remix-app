@@ -8,6 +8,7 @@ import AccountSetting from "~/components/pages/setting/AccountSetting";
 import type { SettingForm } from "~/types/setting";
 import { useState } from "react";
 import { useToast } from "~/hooks/useToast";
+import { useTranslation } from "react-i18next";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { session } = await authenticate.admin(request);
@@ -53,6 +54,7 @@ export async function action({ request }: ActionFunctionArgs) {
 export default function Setting() {
   const { shop, setting } = useLoaderData<typeof loader>();
   const fetcher = useFetcher<typeof action>();
+  const { t } = useTranslation("setting");
 
   const [formData, setFormData] = useState({
     shop: shop,
@@ -68,14 +70,10 @@ export default function Setting() {
     fetcher.submit(formData, { method: "POST" });
   };
 
-  useToast(fetcher);
+  useToast(fetcher, t("toast.success"));
 
   return (
-    <Page
-      fullWidth
-      backAction={{ onAction: () => history.back() }}
-      title="General Settings"
-    >
+    <Page backAction={{ onAction: () => history.back() }} title={t("title")}>
       <Layout>
         <Layout.Section>
           <Card>

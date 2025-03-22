@@ -1,0 +1,37 @@
+{
+  "title": "アップグレード",
+  "changePlanTitle": "プランを変更",
+  "cancelPlan": "解約",
+  "currentPlan": "現在のプラン",
+  "freePlanMessage": "現在、無料プランを利用しています。",
+  "upgradeButton": "アップグレード",
+  "currentPlanMessage": "現在このプランを利用しています。",
+
+  "monthlyPlan": {
+    "title": "月額プラン",
+    "description": "月額サブスクリプションでプレミアム機能を利用できます。",
+    "price": "9",
+    "period": "月",
+    "name": "月額サブスクリプション",
+    "action": "アップグレード",
+    "url": "/api/subscription/monthly",
+    "feature1": "最大10,000商品の管理",
+    "feature2": "高度なカスタマイズオプション",
+    "feature3": "優先カスタマーサポート",
+    "feature4": "詳細な分析とレポート"
+  },
+
+  "annualPlan": {
+    "title": "年間プラン",
+    "description": "年間サブスクリプションでさらにお得にプレミアム機能を利用できます。",
+    "price": "99",
+    "period": "年",
+    "name": "年間サブスクリプション",
+    "action": "アップグレード",
+    "url": "/api/subscription/annual",
+    "feature1": "最大100,000商品の管理",
+    "feature2": "高度なカスタマイズオプション",
+    "feature3": "優先カスタマーサポート",
+    "feature4": "詳細な分析とレポート"
+  }
+}

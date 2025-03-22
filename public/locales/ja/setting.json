@@ -1,0 +1,16 @@
+{
+  "title": "一般設定",
+  "description": "",
+  "labels": {
+    "admin_lang": "管理者言語",
+    "notification_lang": "通知言語",
+    "datetime_format": "日付/時刻書式"
+  },
+  "button": {
+    "save": "保存"
+  },
+  "toast": {
+    "success": "保存しました"
+  }
+}
+

@@ -1,4 +1,5 @@
 import { BlockStack, Button, ButtonGroup, Select } from "@shopify/polaris";
+import { useTranslation } from "react-i18next";
 import {
   dateTimeSelectionOptions,
   languageSelectionOptions,
@@ -18,6 +19,7 @@ const AccountSetting: React.FC<AccountSettingProps> = ({
   setFormData,
   handleSave,
 }) => {
+  const { t } = useTranslation("setting");
   const handleChange = (key: keyof SettingForm, value: string | number) => {
     setFormData((formData) => ({ ...formData, [key]: value }));
   };
@@ -25,21 +27,21 @@ const AccountSetting: React.FC<AccountSettingProps> = ({
   return (
     <BlockStack gap="400">
       <Select
-        label="Admin Language"
+        label={t("labels.admin_lang")}
         options={languageSelectionOptions}
         value={formData.lang}
         onChange={(value) => handleChange("lang", value)}
       />
 
       <Select
-        label="Notification Language"
+        label={t("labels.notification_lang")}
         options={languageSelectionOptions}
         value={formData.notification_lang}
         onChange={(value) => handleChange("notification_lang", value)}
       />
 
       <Select
-        label="Date/Time Format"
+        label={t("labels.datetime_format")}
         options={dateTimeSelectionOptions}
         value={formData.datetime_format?.toString()}
         onChange={(value) => handleChange("datetime_format", value)}
@@ -47,7 +49,7 @@ const AccountSetting: React.FC<AccountSettingProps> = ({
 
       <ButtonGroup>
         <Button loading={isLoading} onClick={handleSave} variant="primary">
-          Save
+          {t("button.save")}
         </Button>
       </ButtonGroup>
     </BlockStack>
