@@ -1,7 +1,7 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
 client_id = "66bded3c3b43106166bee8105a594529"
-application_url = "https://calls-uganda-cigarette-soccer.trycloudflare.com"
+application_url = "https://anymore-relevance-opened-rides.trycloudflare.com"
 embedded = true
 name = "base-remix-app"
 handle = "base-remix-app"
@@ -23,13 +23,13 @@ api_version = "2025-01"
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
+scopes = "write_products,read_products"
 
 [auth]
 redirect_urls = [
-  "https://calls-uganda-cigarette-soccer.trycloudflare.com/auth/callback",
-  "https://calls-uganda-cigarette-soccer.trycloudflare.com/auth/shopify/callback",
-  "https://calls-uganda-cigarette-soccer.trycloudflare.com/api/auth/callback"
+  "https://anymore-relevance-opened-rides.trycloudflare.com/auth/callback",
+  "https://anymore-relevance-opened-rides.trycloudflare.com/auth/shopify/callback",
+  "https://anymore-relevance-opened-rides.trycloudflare.com/api/auth/callback"
 ]
 
 [pos]

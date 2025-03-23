@@ -1,5 +1,6 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import { TitleBar } from "@shopify/app-bridge-react";
 import { BlockStack, Card, Layout, Page } from "@shopify/polaris";
 import { useTranslation } from "react-i18next";
 import SelectPlan from "~/components/upgrade/SelectPlan";
@@ -30,7 +31,8 @@ const Upgrade = () => {
       };
 
   return (
-    <Page backAction={{ onAction: () => history.back() }} title={t("title")}>
+    <Page>
+      <TitleBar title={t("title")} />
       <Layout>
         <Layout.Section>
           <Card>

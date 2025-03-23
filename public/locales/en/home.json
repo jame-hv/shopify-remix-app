@@ -1,0 +1,21 @@
+{
+  "title": "Remix App Template",
+  "blocks": {
+    "intro": {
+      "heading": "Get Started with Products 🎉",
+      "description": "Generate a product with GraphQL and get the JSON output for that product. Learn more about the",
+      "productCreate_link": "productCreate",
+      "additional_info": "mutation in our API references."
+    },
+    "actions": {
+      "buttons": {
+        "generate_product": "Generate a Product"
+      }
+    },
+    "next_steps": {
+      "heading": "Next Steps",
+      "description": "Explore Shopify’s API with",
+      "graphiql_link": "GraphiQL"
+    }
+  }
+}

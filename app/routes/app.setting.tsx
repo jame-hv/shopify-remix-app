@@ -1,6 +1,6 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
 import { json, useFetcher, useLoaderData } from "@remix-run/react";
-import { BlockStack, Card, Layout, Page } from "@shopify/polaris";
+import { BlockStack, Card, Layout, Page, Text } from "@shopify/polaris";
 import { authenticate } from "app/shopify.server";
 import { getShopSetting, upsertSetting } from "~/server/account/account.server";
 
@@ -9,6 +9,7 @@ import type { SettingForm } from "~/types/setting";
 import { useState } from "react";
 import { useToast } from "~/hooks/useToast";
 import { useTranslation } from "react-i18next";
+import { TitleBar } from "@shopify/app-bridge-react";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { session } = await authenticate.admin(request);
@@ -73,17 +74,23 @@ export default function Setting() {
   useToast(fetcher, t("toast.success"));
 
   return (
-    <Page backAction={{ onAction: () => history.back() }} title={t("title")}>
+    <Page>
+      <TitleBar title={t("title")} />
       <Layout>
         <Layout.Section>
           <Card>
             <BlockStack gap="400">
-              <AccountSetting
-                isLoading={isLoading}
-                formData={formData}
-                setFormData={setFormData}
-                handleSave={handleSave}
-              />
+              <Text as="h2" variant="headingMd">
+                {t("title")}
+              </Text>
+              <BlockStack gap="400">
+                <AccountSetting
+                  isLoading={isLoading}
+                  formData={formData}
+                  setFormData={setFormData}
+                  handleSave={handleSave}
+                />
+              </BlockStack>
             </BlockStack>
           </Card>
         </Layout.Section>

@@ -2,7 +2,7 @@
   "title": "一般設定",
   "description": "",
   "labels": {
-    "admin_lang": "管理者言語",
+    "admin_lang": "管理画面言語",
     "notification_lang": "通知言語",
     "datetime_format": "日付/時刻書式"
   },
