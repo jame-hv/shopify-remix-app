@@ -1,7 +1,6 @@
 import { redirect, type LoaderFunctionArgs } from "@remix-run/node";
 import { authenticate, ANNUAL_PLAN } from "~/shopify.server";
 
-// upgrade
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { session, billing } = await authenticate.admin(request);
   const { shop } = session;

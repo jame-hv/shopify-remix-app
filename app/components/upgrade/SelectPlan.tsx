@@ -109,9 +109,7 @@ export default function SelectPlan(props: PricingProps) {
                   />
                 </BlockStack>
 
-                <div style={{ margin: "1rem 0" }}>
-                  <Divider />
-                </div>
+                <div style={{ margin: "0.5rem 0" }}></div>
 
                 {plan_item.name !== plan.name ? (
                   <Button

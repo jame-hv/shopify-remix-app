@@ -10,7 +10,7 @@ import {
 import i18next from "~/config/i18n/i18next.server";
 import { useTranslation } from "react-i18next";
 import { authenticate } from "./shopify.server";
-import { getShopSetting } from "./server/account/account.server";
+import { getShopSetting } from "./.server/account/account.server";
 import { useChangeLanguage } from "remix-i18next/react";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {

@@ -28,6 +28,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     return redirect("/app");
   } catch (error) {
     console.error("Subscription cancellation error:", error);
-    return json({ error: "Failed to cancel subscription." }, { status: 500 });
+    return {
+      error: "An error occurred while cancelling the subscription.",
+      status: 500,
+    };
   }
 };

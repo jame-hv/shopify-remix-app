@@ -1,15 +1,17 @@
 import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node";
-import { json, useFetcher, useLoaderData } from "@remix-run/react";
+import type { SettingForm } from "~/types/setting";
+import { useFetcher, useLoaderData } from "@remix-run/react";
 import { BlockStack, Card, Layout, Page, Text } from "@shopify/polaris";
 import { authenticate } from "app/shopify.server";
-import { getShopSetting, upsertSetting } from "~/server/account/account.server";
-
-import AccountSetting from "~/components/pages/setting/AccountSetting";
-import type { SettingForm } from "~/types/setting";
+import {
+  getShopSetting,
+  upsertSetting,
+} from "~/.server/account/account.server";
 import { useState } from "react";
 import { useToast } from "~/hooks/useToast";
 import { useTranslation } from "react-i18next";
 import { TitleBar } from "@shopify/app-bridge-react";
+import AccountSetting from "~/components/pages/setting/AccountSetting";
 
 export async function loader({ request }: LoaderFunctionArgs) {
   const { session } = await authenticate.admin(request);
@@ -36,7 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const settingData: SettingForm = {
     shop: data.shop as string,
-    lang: (data.lang as string) || "en", // Ensure fallback
+    lang: (data.lang as string) || "en",
     notification_lang: (data.notification_lang as string) || "en",
     datetime_format: data.datetime_format
       ? Number(data.datetime_format)
@@ -44,12 +46,20 @@ export async function action({ request }: ActionFunctionArgs) {
   };
 
   if (!settingData.shop) {
-    return json({ error: "Invalid input" }, { status: 400 });
+    return {
+      errors: {
+        shop: "Please enter your shop domain to log in",
+      },
+      status: 400,
+    };
   }
 
   await upsertSetting(settingData);
 
-  return json({ success: true });
+  return {
+    status: 200,
+    success: true,
+  };
 }
 
 export default function Setting() {
